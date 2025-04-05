@@ -1,0 +1,44 @@
+version: "3"
+services:
+  beverage-preference-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: sayojya2000/vending-machine-microservices:latest
+    hostname: beverage-preference-service
+    ports:
+      - "9092:9092"
+    restart: always
+    entrypoint: BeveragePreferenceService
+  order-beverage-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: sayojya2000/vending-machine-microservices:latest
+    hostname: order-beverage-service
+    ports:
+      - "9091:9091"
+    restart: always
+    entrypoint: OrderBeverageService
+
+  weather-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: sayojya2000/vending-machine-microservices:latest
+    hostname: weather-service
+    ports:
+      - "9090:9090"
+    restart: always
+    entrypoint: WeatherService
+
+  nginx-thrift:
+    image: yg397/openresty-thrift:xenial
+    hostname: nginx-thrift
+    ports:
+      - 8080:8080
+    restart: always
+    volumes:
+      - ./nginx_reverse_proxy/lua-scripts:/usr/local/openresty/nginx/lua-scripts
+      - ./nginx_reverse_proxy/conf/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf
+      - ./gen-lua:/gen-lua
