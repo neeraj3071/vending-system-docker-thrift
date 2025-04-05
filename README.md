@@ -39,7 +39,7 @@ This project simulates a smart vending machine using a distributed microservices
 ### 1. Clone the Repository
 ```bash
 git clone https://github.com/neeraj3071/vending-system-docker-thrift.git
-cd vending-machine-microservices
+cd vending-system-docker-thrift
 ```
 
 ### 2. Build and Run All Services
